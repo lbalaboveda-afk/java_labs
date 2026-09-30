@@ -1,0 +1,155 @@
+
+CREATE SEQUENCE seq_artist_id START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_album_id START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_composition_id START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE Artist (
+    artist_id     INTEGER      PRIMARY KEY DEFAULT nextval('seq_artist_id'),
+    artist_name   VARCHAR(100) NOT NULL UNIQUE,
+    CONSTRAINT chk_artist_name CHECK (LENGTH(TRIM(artist_name)) > 0)
+);
+ALTER SEQUENCE seq_artist_id OWNED BY Artist.artist_id;
+
+CREATE TABLE Album (
+    album_id      INTEGER      PRIMARY KEY DEFAULT nextval('seq_album_id'),
+    album_name    VARCHAR(200) NOT NULL,
+    genre         VARCHAR(50)  NOT NULL,
+    artist_id     INTEGER      NOT NULL REFERENCES Artist(artist_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT chk_album_name  CHECK (LENGTH(TRIM(album_name)) > 0),
+    CONSTRAINT chk_album_genre CHECK (LENGTH(TRIM(genre)) > 0)
+);
+ALTER SEQUENCE seq_album_id OWNED BY Album.album_id;
+
+
+CREATE TABLE Composition (
+    composition_id   INTEGER      PRIMARY KEY DEFAULT nextval('seq_composition_id'),
+    composition_name VARCHAR(200) NOT NULL,
+    duration         INTEGER      NOT NULL,
+    album_id         INTEGER      NOT NULL REFERENCES Album(album_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT chk_composition_name CHECK (LENGTH(TRIM(composition_name)) > 0),
+    CONSTRAINT chk_composition_dur  CHECK (duration > 0)
+);
+ALTER SEQUENCE seq_composition_id OWNED BY Composition.composition_id;
+
+
+BEGIN;
+
+INSERT INTO Artist (artist_name) VALUES
+    ('Иоганн Себастьян Бах'),
+    ('Вольфганг Амадей Моцарт'),
+    ('Людвиг ван Бетховен'),
+    ('Пётр Ильич Чайковский'),
+    ('Фредерик Шопен'),
+    ('Антонио Вивальди'),
+    ('Саунд-дизайнер Алексей'),
+    ('Группа "Одна Секунда"');
+
+INSERT INTO Album (album_name, genre, artist_id) VALUES
+    ('Бранденбургские концерты',        'Барокко',      1),
+    ('Хорошо темперированный клавир',   'Барокко',      1),
+    ('Токкаты и фуги для органа',       'Барокко',      1),
+    ('Симфония № 40',                   'Классицизм',   2),
+    ('Симфония № 41 «Юпитер»',          'Классицизм',   2),
+    ('Реквием',                         'Классицизм',   2),
+    ('Симфония № 5',                    'Классицизм',   3),
+    ('Симфония № 9 «Хоральная»',        'Классицизм',   3),
+    ('Лунная соната',                   'Классицизм',   3),
+    ('Лебединое озеро',                 'Романтизм',    4),
+    ('Щелкунчик',                       'Романтизм',    4),
+    ('Времена года',                    'Романтизм',    4),
+    ('Ноктюрны',                        'Романтизм',    5),
+    ('Вальсы',                          'Романтизм',    5),
+    ('Этюды',                           'Романтизм',    5),
+    ('Времена года',                    'Барокко',      6),
+    ('Концерты для скрипки',            'Барокко',      6),
+    ('Мгновенные звуки',                'Глитч',        7),
+    ('Слишком быстро',                  'Нойз',         8);
+
+INSERT INTO Composition (composition_name, duration, album_id) VALUES
+    ('Концерт № 1 фа мажор',            1200, 1),
+    ('Концерт № 2 фа мажор',            1140, 1),
+    ('Концерт № 3 соль мажор',          1020, 1),
+    ('Концерт № 4 соль мажор',          1260, 1),
+    ('Концерт № 5 ре мажор',            1380, 1),
+    ('Концерт № 6 си-бемоль мажор',     1080, 1),
+    ('Прелюдия и фуга до мажор',        360, 2),
+    ('Прелюдия и фуга до минор',        420, 2),
+    ('Прелюдия и фуга ре мажор',        390, 2),
+    ('Прелюдия и фуга ре минор',        450, 2),
+    ('Прелюдия и фуга ми мажор',        380, 2),
+    ('Токката и фуга ре минор',         540, 3),
+    ('Токката и фуга фа мажор',         480, 3),
+    ('Токката и фуга до мажор',         510, 3),
+    ('I. Molto allegro',                480, 4),
+    ('II. Andante',                     720, 4),
+    ('III. Menuetto. Allegretto',       300, 4),
+    ('IV. Allegro assai',               420, 4),
+    ('I. Allegro vivace',               660, 5),
+    ('II. Andante cantabile',           540, 5),
+    ('III. Menuetto. Allegretto',       300, 5),
+    ('IV. Molto allegro',               720, 5),
+    ('Introitus. Requiem aeternam',     300, 6),
+    ('Kyrie eleison',                   180, 6),
+    ('Dies irae',                       120, 6),
+    ('Tuba mirum',                      240, 6),
+    ('Lacrimosa',                       210, 6),
+    ('I. Allegro con brio',             450, 7),
+    ('II. Andante con moto',            600, 7),
+    ('III. Scherzo. Allegro',           330, 7),
+    ('IV. Allegro',                     540, 7),
+    ('I. Allegro ma non troppo',        900, 8),
+    ('II. Molto vivace',                660, 8),
+    ('III. Adagio molto e cantabile',   840, 8),
+    ('IV. Ода к радости',               1080, 8),
+    ('I. Adagio sostenuto',             360, 9),
+    ('II. Allegretto',                  180, 9),
+    ('III. Presto agitato',             420, 9),
+    ('Сцена',                           180, 10),
+    ('Вальс',                           300, 10),
+    ('Танец маленьких лебедей',         120, 10),
+    ('Венгерский танец',                240, 10),
+    ('Увертюра',                        240, 11),
+    ('Марш',                            180, 11),
+    ('Танец феи Драже',                 150, 11),
+    ('Вальс цветов',                    360, 11),
+    ('Трепак',                          180, 11),
+    ('Январь. У камелька',              240, 12),
+    ('Февраль. Масленица',              180, 12),
+    ('Март. Песня жаворонка',           150, 12),
+    ('Апрель. Подснежник',              180, 12),
+    ('Май. Белые ночи',                 240, 12),
+    ('Июнь. Баркарола',                 300, 12),
+    ('Ноктюрн op. 9 № 2 ми-бемоль мажор', 270, 13),
+    ('Ноктюрн op. 15 № 1 фа мажор',       240, 13),
+    ('Ноктюрн op. 27 № 1 до-диез минор',  300, 13),
+    ('Ноктюрн op. 32 № 1 си мажор',       240, 13),
+    ('Вальс op. 64 № 1 «Щенок»',         120, 14),
+    ('Вальс op. 64 № 2 до-диез минор',   180, 14),
+    ('Вальс op. 69 № 1 «Прощальный»',    240, 14),
+    ('Вальс op. 18 ми-бемоль мажор',     300, 14),
+    ('Этюд op. 10 № 3 ми мажор',         240, 15),
+    ('Этюд op. 10 № 12 «Революционный»', 150, 15),
+    ('Этюд op. 25 № 11 «Зимний вихрь»',  210, 15),
+    ('Весна. Allegro',                  180, 16),
+    ('Весна. Largo',                    120, 16),
+    ('Лето. Allegro non molto',         240, 16),
+    ('Лето. Presto',                    150, 16),
+    ('Осень. Allegro',                  180, 16),
+    ('Зима. Allegro non molto',         200, 16),
+    ('Концерт ля минор, I часть',       180, 17),
+    ('Концерт ля минор, II часть',      150, 17),
+    ('Концерт ля минор, III часть',     210, 17),
+    ('Концерт ре мажор, I часть',       200, 17),
+    ('Концерт ре мажор, II часть',      170, 17),
+    ('Писк',                            1, 18),
+    ('Щелчок',                          2, 18),
+    ('Вдох',                            3, 18),
+    ('Старт',                           4, 19),
+    ('Финиш',                           3, 19),
+    ('Ошибка',                          2, 19);
+
+UPDATE Composition SET duration = 4 WHERE composition_name = 'Танец маленьких лебедей' AND album_id = 10;
+UPDATE Composition SET duration = 3 WHERE composition_name = 'Kyrie eleison' AND album_id = 6;
+UPDATE Composition SET duration = 2 WHERE composition_name = 'Трепак' AND album_id = 11;
+
+COMMIT;
