@@ -1,0 +1,142 @@
+:root {
+    --primary: #10b981;
+    --primary-hover: #059669;
+    --bg: #f3f4f6;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --border: #d1d5db;
+    --header-bg: #e5e7eb;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--text);
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.operations {
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.operations legend {
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+.operations label {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.result-table th,
+.result-table td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: center;
+}
+
+.result-table th {
+    background-color: var(--header-bg);
+    font-weight: bold;
+}
+
+.photo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.photo img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.photo figcaption {
+    margin-top: 8px;
+    font-style: italic;
+    color: #6b7280;
+}
+
+.back-link {
+    text-align: center;
+}
+
+.back-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.back-link a:hover {
+    color: #b91c1c;
+    text-decoration: underline;
+}

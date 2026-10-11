@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор — ввод данных</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Калькулятор</h1>
+    <p class="intro">
+        Введите два числа, выберите арифметическую операцию
+        и нажмите «Вычислить». Результат откроется на следующей странице.
+    </p>
+
+    <form id="calcForm" action="result.html" method="get">
+        <label for="a">Первое число:
+            <input type="number" id="a" name="a" step="any" required>
+        </label>
+
+        <label for="b">Второе число:
+            <input type="number" id="b" name="b" step="any" required>
+        </label>
+
+        <fieldset class="operations">
+            <legend>Операция</legend>
+            <label><input type="radio" name="op" value="add" checked> Сложение</label>
+            <label><input type="radio" name="op" value="sub"> Вычитание</label>
+            <label><input type="radio" name="op" value="mul"> Умножение</label>
+            <label><input type="radio" name="op" value="div"> Деление</label>
+        </fieldset>
+
+        <button type="submit">Вычислить</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

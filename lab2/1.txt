@@ -1,0 +1,2 @@
+javac -encoding UTF-8 -d out src\task_xml\Main.java src\task_xml\Operations.java
+java "-Dfile.encoding=UTF-8" -cp out task_xml.Main resources\students.xml resources\students-fixed.xml
